@@ -11,8 +11,14 @@ INCDIR = $(SRCDIR)/headers
 ## Binary name
 BINNAME = libcsv
 
-### Binary format (default: .dylib, MUST change according to your OS)
+### Binary format 
 BINFMT = .dylib
+
+# (Linux, FreeBSD, OpenBSD, etc.)
+# BINFMT = .so
+
+# (Squeaky-Shiny MS-DOS, Cross-Compilers on UNIX-like systems, etc.)
+# BINFMT = .dll
 
 ### Binary name used in compiler flags
 BINNAMEINFLAG = $(BINNAME)$(BINFMT)
@@ -20,9 +26,10 @@ BINNAMEINFLAG = $(BINNAME)$(BINFMT)
 ## Version
 VERSION = 0.1.0
 MARCH = $(shell uname -m)
+SYSTEM = $(shell uname | tr [:upper:] [:lower:])
 
-## Build directory
-BUILDDIR = $(BINNAME)-$(MARCH):$(VERSION)/
+## Build directory (makes a very sexy directory name - e.g. libcsv-1.0.0-i386-linux-gnu)
+BUILDDIR = $(BINNAME)-$(VERSION)-$(MARCH)-$(SYSTEM)-$(CC)
 
 # Default Compiler (change to whatever you prefer)
 CC = clang
