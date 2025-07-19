@@ -4,6 +4,8 @@
 # libcsv
 C library for managing CSV files
 
+This library can be used to write programs that preview spreadsheets or tables written in CSV.
+
 # Building
 This library is buildable in all platforms, including *Squeaky-Shiny MS-DOS*™ on MINGW.
 
