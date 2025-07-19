@@ -1,12 +1,34 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef LIBCSV_IMPL
-#define LIBCSV_IMPL
+#include "./headers/main.h"
 
-void libcsv_greet(const char *user) {
-	printf("Hello, %s\n", user);
+
+static const char *read_file(const char *filename) {
+	FILE *fptr = fopen(filename, "r");
+	assert(fptr != NULL);
+
+	char *buffer = 0;
+	long buflen;
+
+	fseek(fptr, 0, SEEK_END);
+	buflen = ftell(fptr);
+	fseek(fptr, 0, SEEK_SET);
+
+	buffer = malloc(buflen);
+	assert(buffer != NULL);
+	
+	fread(buffer, 1, buflen, fptr);
+	fclose(fptr);
+
+	return buffer;
 }
 
-#endif // LIBCSV_IMPL
+
+#define LIBCSV_IMPL
+
+CSV *libcsv_load_file(const char *filename) {
+	    
+}
