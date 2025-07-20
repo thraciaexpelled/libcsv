@@ -4,5 +4,7 @@
         "assert.h": "c",
         "strsplit.h": "c",
         "err.h": "c"
-    }
+    },
+    "editor.renderFinalNewline": "dimmed",
+    "files.insertFinalNewline": true
 }

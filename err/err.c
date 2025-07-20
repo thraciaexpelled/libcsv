@@ -1,3 +1,14 @@
+// mute annoying unncesessary warnings
+#ifdef __clang__
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+	#pragma clang diagnostic ignored "-Wstrict-prototypes"
+	#pragma clang diagnostic ignored "-Wnewline-eof"
+	#pragma clang diagnostic ignored "-Wsometimes-uninitialized"
+	#pragma clang diagnostic ignored "-Wunused-variable"
+    #pragma clang diagnostic ignored "-Wunused-but-set-variable"
+#endif
+
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -52,3 +63,7 @@ void err_out(Severity s, const char *msg, int __errno) {
 
     fprintf(stderr, "%s: %s: %s\n", return_errmsg_prefix(s), msg, strerror(__errno));
 }
+
+#ifdef __clang__
+	#pragma clang diagnostic pop
+#endif

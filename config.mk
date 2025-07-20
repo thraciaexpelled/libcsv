@@ -19,11 +19,11 @@ BINNAME = libcsv
 
 ### Binary format 
 ifeq "$(shell uname)" "Darwin"
-BINFMT = .dylib
-else "$(shell uname)" "MSYS"
-BINFMT = .dll
+	BINFMT = .dylib
+else ifeq "$(shell uname)" "MSYS"
+	BINFMT = .dll
 else
-BINFMT = .so
+	BINFMT = .so
 endif
 
 # (Linux, FreeBSD, OpenBSD, etc.)
@@ -54,6 +54,11 @@ CC = gcc
 
 ## Compiler flags for default compiler
 CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native
+
+### Linux needs this flag
+ifeq "$(shell uname)" "Linux"
+	CCFLAGS += -fPIC
+endif
 
 ### INCARG #1
 CCFLAGS += -I$(INCDIR)

@@ -1,10 +1,11 @@
 // mute annoying unncesessary warnings
-#ifdef __APPLE__
+#ifdef __clang__
 	#pragma clang diagnostic push
 	#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
 	#pragma clang diagnostic ignored "-Wstrict-prototypes"
 	#pragma clang diagnostic ignored "-Wnewline-eof"
 	#pragma clang diagnostic ignored "-Wsometimes-uninitialized"
+	#pragma clang diagnostic ignored "-Wunused-variable"
 #endif
 
 #include <assert.h>
@@ -76,8 +77,8 @@ static char *get_csv_values(const char *csvData) {
 // --! End of Vibe Coding !--
 
 static int count_character(char ch, const char *str) {
-	size_t length = strlen(str);
-	int count;
+	int length = strlen(str);
+	int count = 0;
 	
 	for (int i = 0; i < length; ++i) {
 		if (str[i] == ch) count++; 
@@ -112,6 +113,6 @@ const char **libcsv_get_topmost_row(CSV *csv) {
 	return the_topmost_row;
 }
 
-#ifdef __APPLE__
+#ifdef __clang__
 	#pragma clang diagnostic pop
 #endif
