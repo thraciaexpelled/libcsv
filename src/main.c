@@ -1,10 +1,20 @@
 #include <assert.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "./headers/main.h"
 
+// erroneous
+//#include <deps/strsplit/strsplit.h>
+
+#include "../deps/strsplit/strsplit.h"
+
+// erroneous
+// #include <err/err.h>
+
+#include "../err/err.h"
 
 static const char *read_file(const char *filename) {
 	FILE *fptr = fopen(filename, "r");
@@ -25,8 +35,6 @@ static const char *read_file(const char *filename) {
 
 	return buffer;
 }
-
-// Excerpt from the remnants of the halted `csv-view`
 
 // --! WARNING! Vibe Coded!!! (using duck.ai) !--
 
@@ -58,12 +66,22 @@ static char *get_csv_values(const char *csvData) {
 
 // --! End of Vibe Coding !--
 
+static int count_character(char ch, const char *str) {
+	size_t length = strlen(str);
+	int count;
+	
+	for (int i = 0; i < length; ++i) {
+		if (str[i] == ch) count++; 
+	}
+
+	return count;
+}
 
 #define LIBCSV_IMPL
 
 CSV *libcsv_load_file(const char *filename) {
 	CSV *csv = malloc((sizeof(CSV*)) + (sizeof(char*) * 2));
-	assert(csv != NULL);
+	if (csv == NULL) { err_out(Panic, "Cannot read file", errno); }
 
 	const char *csv_file = read_file(filename);
 
@@ -71,4 +89,16 @@ CSV *libcsv_load_file(const char *filename) {
 	csv->tail = strdup(get_csv_values(csv_file));
 
 	return csv;
+}
+
+const char **libcsv_get_topmost_row(CSV *csv) {
+    const char *topmost_row = strdup(csv->head);	
+	int items_in_array = count_character(',', topmost_row);
+
+	const char **the_topmost_row = malloc(sizeof(char**) * items_in_array);
+	if (the_topmost_row == NULL) { err_out(Panic, "Unexpected error", errno); }
+
+	size_t _ = strsplit(topmost_row, the_topmost_row, "\n");
+
+	return the_topmost_row;
 }

@@ -10,6 +10,4 @@ typedef enum {
     Panic,
 } Severity;
 
-bool be_quiet();
-
-void err_out(Severity s, const char *msg, int errno);
+void err_out(Severity s, const char *msg, int __errno);

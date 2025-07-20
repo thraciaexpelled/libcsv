@@ -9,6 +9,9 @@ INCDIR = $(SRCDIR)/headers
 ## clib(1) dependencies directory
 DEPSDIR = deps
 
+## Error handling
+ERRDIR = err
+
 # Post Compile Directories
 
 ## Binary name
@@ -31,7 +34,7 @@ VERSION = 0.1.0
 MARCH = $(shell uname -m)
 SYSTEM = $(shell uname | tr [:upper:] [:lower:])
 
-## Build directory (makes following directory name - e.g. libcsv-1.0.0-i386-linux-gnu)
+## Build directory (makes following directory name - e.g. libcsv-1.0.0-i386-linux-gcc)
 BUILDDIR = $(BINNAME)-$(VERSION)-$(MARCH)-$(SYSTEM)-$(CC)
 
 ## Prefix #1 -- C header
@@ -50,7 +53,10 @@ CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native
 CCFLAGS += -I$(INCDIR)
 
 ### INCARG #2
-CCFLAGS += -I$(DEPSDIR)
+CCFLAGS += -I$(DEPSDIR)*
+
+### INCARG #3
+CCFLAGS += -I$(ERRDIR)*
 
 ## Linker flags
 LDFLAGS =

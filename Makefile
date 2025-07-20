@@ -3,12 +3,16 @@ include config.mk
 .PHONY: tidy clean install docker
 
 CLIBSRC = $(wildcard deps/*/*.c)
-
 CLIBOBJS = $(CLIBSRC:.c=.o)
 
-$(BINNAMEINFLAG): $(SRCDIR)/main.c $(CLIBOBJS)
-	$(CC) $(CCFLAGS) $< -shared -o $@
+OBJS = err.o
+
+$(BINNAMEINFLAG): $(SRCDIR)/main.c $(CLIBOBJS) err.o
+	$(CC) $(CCFLAGS) $< -shared -o $@ $(CLIBOBJS) $(OBJS)
 	@echo "Run *make tidy* to package this library"
+
+err.o: $(ERRDIR)/err.c
+	$(CC) $(CCFLAGS) $< -c -o $@
 
 %.o: %.c
 	$(CC) $(CCFLAGS) $< -c -o $@
@@ -45,5 +49,8 @@ install:
 	cp -r $(BUILDDIR)/lib/* $(PREFIX2)
 
 docker: clean
+	@echo "Cleaning existing .tmp\n"
+	rm -rf .tmp
+
 	mkdir -p .tmp/libcsv
 	cp -r -v ./* .tmp/libcsv
