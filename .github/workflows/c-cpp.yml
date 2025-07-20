@@ -13,5 +13,5 @@ jobs:
 
     steps:
       - name: make
-        uses: aminya/setup-cpp@v1.7.1
+        uses: actions/checkout@v4
       - run: make
