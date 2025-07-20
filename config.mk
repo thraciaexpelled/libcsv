@@ -18,7 +18,13 @@ ERRDIR = err
 BINNAME = libcsv
 
 ### Binary format 
+ifeq "$(shell uname)" "Darwin"
 BINFMT = .dylib
+else "$(shell uname)" "MSYS"
+BINFMT = .dll
+else
+BINFMT = .so
+endif
 
 # (Linux, FreeBSD, OpenBSD, etc.)
 # BINFMT = .so
@@ -44,7 +50,7 @@ PREFIX1 = /usr/local/include
 PREFIX2 = /usr/local/lib
 
 # Default Compiler (change to whatever you prefer)
-CC = clang
+CC = gcc
 
 ## Compiler flags for default compiler
 CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native

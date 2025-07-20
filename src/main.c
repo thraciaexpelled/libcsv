@@ -1,3 +1,12 @@
+// mute annoying unncesessary warnings
+#ifdef __APPLE__
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+	#pragma clang diagnostic ignored "-Wstrict-prototypes"
+	#pragma clang diagnostic ignored "-Wnewline-eof"
+	#pragma clang diagnostic ignored "-Wsometimes-uninitialized"
+#endif
+
 #include <assert.h>
 #include <errno.h>
 #include <stdio.h>
@@ -102,3 +111,7 @@ const char **libcsv_get_topmost_row(CSV *csv) {
 
 	return the_topmost_row;
 }
+
+#ifdef __APPLE__
+	#pragma clang diagnostic pop
+#endif
