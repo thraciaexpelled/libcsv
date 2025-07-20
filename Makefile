@@ -2,9 +2,16 @@ include config.mk
 
 .PHONY: tidy clean install docker
 
-$(BINNAMEINFLAG): $(SRCDIR)/main.c
+CLIBSRC = $(wildcard deps/*/*.c)
+
+CLIBOBJS = $(CLIBSRC:.c=.o)
+
+$(BINNAMEINFLAG): $(SRCDIR)/main.c $(CLIBOBJS)
 	$(CC) $(CCFLAGS) $< -shared -o $@
 	@echo "Run *make tidy* to package this library"
+
+%.o: %.c
+	$(CC) $(CCFLAGS) $< -c -o $@
 
 tidy:
 	@echo "Forcibly removing any existing packages..."
@@ -19,9 +26,9 @@ tidy:
 
 	@echo "Copying files..."
 
-# Copying compiled library
+	# Copying compiled library
 	cp $(BINNAMEINFLAG) $(BUILDDIR)/lib
-# Copying include file
+	# Copying include file
 	cp $(SRCDIR)/headers/main.h $(BUILDDIR)/include
 	mv $(BUILDDIR)/include/main.h $(BUILDDIR)/include/csv.h
 
@@ -34,8 +41,8 @@ clean:
 	rm -rf $(BUILDDIR)
 
 install:
-	cp -r $(BUILDDIR)/include/* /usr/local/include
-	cp -r $(BUILDDIR)/lib/* /usr/local/lib
+	cp -r $(BUILDDIR)/include/* $(PREFIX1)
+	cp -r $(BUILDDIR)/lib/* $(PREFIX2)
 
 docker: clean
 	mkdir -p .tmp/libcsv

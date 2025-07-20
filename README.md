@@ -7,6 +7,9 @@ C library for managing CSV files
 # Building
 This library is buildable in all platforms, including *Squeaky-Shiny MS-DOS*™ on MINGW.
 
+> [!NOTE]
+> Source files in `deps/` are taken from the C package manager, [`clib`](https://www.github.com/clibs/clib)
+
 If you have Docker, it is also possible to test the library in a containerized environment.
 
 ### To build the library

@@ -6,6 +6,9 @@ SRCDIR = src
 ## Include (header) directory
 INCDIR = $(SRCDIR)/headers
 
+## clib(1) dependencies directory
+DEPSDIR = deps
+
 # Post Compile Directories
 
 ## Binary name
@@ -28,8 +31,14 @@ VERSION = 0.1.0
 MARCH = $(shell uname -m)
 SYSTEM = $(shell uname | tr [:upper:] [:lower:])
 
-## Build directory (makes a very sexy directory name - e.g. libcsv-1.0.0-i386-linux-gnu)
+## Build directory (makes following directory name - e.g. libcsv-1.0.0-i386-linux-gnu)
 BUILDDIR = $(BINNAME)-$(VERSION)-$(MARCH)-$(SYSTEM)-$(CC)
+
+## Prefix #1 -- C header
+PREFIX1 = /usr/local/include
+
+## Prefix #2 -- Dynamic object
+PREFIX2 = /usr/local/lib
 
 # Default Compiler (change to whatever you prefer)
 CC = clang
@@ -39,6 +48,9 @@ CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native
 
 ### INCARG #1
 CCFLAGS += -I$(INCDIR)
+
+### INCARG #2
+CCFLAGS += -I$(DEPSDIR)
 
 ## Linker flags
 LDFLAGS =
