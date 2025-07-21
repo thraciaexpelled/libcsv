@@ -50,7 +50,7 @@ PREFIX1 = /usr/local/include
 PREFIX2 = /usr/local/lib
 
 # Default Compiler (change to whatever you prefer)
-CC = clang
+CC = cc
 
 ## Compiler flags for default compiler
 CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native

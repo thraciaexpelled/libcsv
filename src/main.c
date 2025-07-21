@@ -108,9 +108,21 @@ const char **libcsv_get_topmost_row(CSV *csv) {
 	const char **the_topmost_row = malloc(sizeof(char**) * items_in_array);
 	if (the_topmost_row == NULL) { err_out(Panic, "Unexpected error", errno); }
 
-	size_t _ = strsplit(topmost_row, the_topmost_row, "\n");
+	size_t _ = strsplit(topmost_row, the_topmost_row, ",");
 
 	return the_topmost_row;
+}
+
+const char **libcsv_get_everything(CSV *csv) {
+	const char *csv_body = strdup(csv->tail);
+	int items_in_array = count_character('\n', csv_body);
+
+	const char **the_csv_body = malloc(sizeof(char**) * items_in_array);
+	if (the_csv_body == NULL) { err_out(Panic, "Unexpected error", errno); }
+
+	size_t _ = strsplit(csv_body, the_csv_body, "\n");
+
+	return the_csv_body;
 }
 
 #ifdef __clang__

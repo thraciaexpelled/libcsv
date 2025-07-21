@@ -8,6 +8,6 @@ FROM debian
 
 COPY .tmp/libcsv/ /libcsv
 
-RUN apt-get update && apt-get install gcc make -y
+RUN apt-get update && apt-get install gcc make nano vim -y
 
 # TODO: run `docker run -it <name_of_built_container>:<xxxxxxx> /bin/bash` to run your dock

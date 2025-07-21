@@ -6,6 +6,8 @@ C library for managing CSV files
 
 This library can be used to write programs that preview spreadsheets or tables written in CSV.
 
+New features will be in the works to provide more processing.
+
 # Building
 This library is buildable in all platforms, including *Squeaky-Shiny MS-DOS*™ on MINGW.
 

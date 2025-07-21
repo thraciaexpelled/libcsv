@@ -30,9 +30,10 @@ tidy:
 
 	@echo "Copying files..."
 
-	# Copying compiled library
+	@# Copying compiled library
 	cp $(BINNAMEINFLAG) $(BUILDDIR)/lib
-	# Copying include file
+	
+	@# Copying include file
 	cp $(SRCDIR)/headers/main.h $(BUILDDIR)/include
 	mv $(BUILDDIR)/include/main.h $(BUILDDIR)/include/csv.h
 
@@ -40,9 +41,11 @@ tidy:
 
 clean:
 	rm -f *.o
+	rm -rf deps/*/*.o
 	rm -f *$(BINFMT)
 	rm -f $(BINNAME)
 	rm -rf $(BUILDDIR)
+	@echo
 
 install:
 	cp -r $(BUILDDIR)/include/* $(PREFIX1)
