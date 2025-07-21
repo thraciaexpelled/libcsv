@@ -11,6 +11,9 @@ New features will be in the works to provide more processing.
 # Building
 This library is buildable in all platforms, including *Squeaky-Shiny MS-DOS*™ on MINGW.
 
+> [!IMPORTANT]
+> This library must be built with `clang` for now.
+
 > [!NOTE]
 > Source files in `deps/` are taken from the C package manager, [`clib`](https://www.github.com/clibs/clib)
 

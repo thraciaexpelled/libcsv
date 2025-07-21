@@ -49,29 +49,29 @@ static const char *read_file(const char *filename) {
 // --! WARNING! Vibe Coded!!! (using duck.ai) !--
 
 static char *get_csv_topmost_row(const char *csvData) {
-    size_t len = strcspn(csvData, "\n");
-    char *retval = (char *)malloc((len + 1) * sizeof(char));
-    assert(retval != NULL);
+	size_t len = strcspn(csvData, "\n");
+	char *retval = (char *)malloc((len + 1) * sizeof(char));
+	assert(retval != NULL);
 
-    strncpy(retval, csvData, len);
-    retval[len] = '\0'; // Ensure null termination
+	strncpy(retval, csvData, len);
+	retval[len] = '\0'; // Ensure null termination
 
-    return retval;
+	return retval;
 }
 
 static char *get_csv_values(const char *csvData) {
-    const char *newline_pos = strchr(csvData, '\n');
+	const char *newline_pos = strchr(csvData, '\n');
 
-    if (newline_pos == NULL) {
-        char *empty_string = strdup("");
-        assert(empty_string != NULL);
-        return empty_string;
-    }
+	if (newline_pos == NULL) {
+		char *empty_string = strdup("");
+		assert(empty_string != NULL);
+		return empty_string;
+	}
 
-    char *retval = strdup(newline_pos + 1);
-    assert(retval != NULL);
+	char *retval = strdup(newline_pos + 1);
+	assert(retval != NULL);
 
-    return retval;
+	return retval;
 }
 
 // --! End of Vibe Coding !--

@@ -50,7 +50,7 @@ PREFIX1 = /usr/local/include
 PREFIX2 = /usr/local/lib
 
 # Default Compiler (change to whatever you prefer)
-CC = cc
+CC = clang
 
 ## Compiler flags for default compiler
 CCFLAGS = -Wall -Wextra -Wpedantic -O2 -march=native
@@ -71,3 +71,11 @@ CCFLAGS += -I$(ERRDIR)*
 
 ## Linker flags
 LDFLAGS =
+
+## I'm as embarassed to say that we need this, for
+## proper echo output on GNU/Linux
+ECHOFLAGS =
+
+ifeq "$(shell uname)" "Linux"
+	ECHOFLAGS += -e
+endif

@@ -21,14 +21,14 @@ tidy:
 	@echo "Forcibly removing any existing packages..."
 	rm -rf $(BUILDDIR)
 
-	@echo "\nBuilding package structure..."
-	@echo "Creating $(BUILDDIR)/lib"
+	@echo $(ECHOFLAGS) "\nBuilding package structure..."
+	@echo $(ECHOFLAGS) "Creating $(BUILDDIR)/lib"
 	@mkdir -p $(BUILDDIR)/lib
 
-	@echo "Creating $(BUILDDIR)/include\n"
+	@echo $(ECHOFLAGS) "Creating $(BUILDDIR)/include\n"
 	@mkdir -p $(BUILDDIR)/include
 
-	@echo "Copying files..."
+	@echo $(ECHOFLAGS) "Copying files..."
 
 	@# Copying compiled library
 	cp $(BINNAMEINFLAG) $(BUILDDIR)/lib
@@ -37,7 +37,7 @@ tidy:
 	cp $(SRCDIR)/headers/main.h $(BUILDDIR)/include
 	mv $(BUILDDIR)/include/main.h $(BUILDDIR)/include/csv.h
 
-	@echo "\nAll done\n"
+	@echo $(ECHOFLAGS) "\nAll done\n"
 
 clean:
 	rm -f *.o
