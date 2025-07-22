@@ -36,7 +36,7 @@ endif
 BINNAMEINFLAG = $(BINNAME)$(BINFMT)
 
 ## Version
-VERSION = 0.1.0
+VERSION = 0.9.0
 MARCH = $(shell uname -m)
 SYSTEM = $(shell uname | tr [:upper:] [:lower:])
 

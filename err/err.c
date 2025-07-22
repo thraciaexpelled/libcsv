@@ -7,6 +7,7 @@
 	#pragma clang diagnostic ignored "-Wsometimes-uninitialized"
 	#pragma clang diagnostic ignored "-Wunused-variable"
     #pragma clang diagnostic ignored "-Wunused-but-set-variable"
+    #pragma clang diagnostic ignored "-Wvoid-pointer-to-int-cast"
 #endif
 
 #include <assert.h>
@@ -27,7 +28,7 @@ static const char *return_errmsg_prefix(Severity s) {
         case Critical:  return "[critical]";
         case Panic:     return "[PANIC]";
         default: {
-            fprintf(stderr, "libcsv: internal error: invalid severity level: %s", s);
+            fprintf(stderr, "libcsv: internal error: invalid severity level\n");
             abort();
         }
     }
@@ -37,8 +38,9 @@ static const char *return_errmsg_prefix(Severity s) {
 
 void err_out(Severity s, const char *msg, int __errno) {
     const char *errno_msg;
-    if (errno != NULL) {
-        errno_msg = strdup(strerror(errno));
+
+    if (__errno != (int)NULL) {
+        errno_msg = strdup(strerror(__errno));
     } else {
         errno_msg = "(errno not provided)";
     }

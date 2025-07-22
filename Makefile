@@ -47,9 +47,15 @@ clean:
 	rm -rf $(BUILDDIR)
 	@echo
 
-install:
+install: tidy
 	cp -r $(BUILDDIR)/include/* $(PREFIX1)
 	cp -r $(BUILDDIR)/lib/* $(PREFIX2)
+
+ifeq "$(shell uname)" "Linux"
+	@echo $(ECHOFLAGS) "\nLinux detected, some distributions of GNU/Linux may not find $(BINNAMEINFLAG) in our directories\n"
+	ln -sf $(PREFIX1)/csv.h /usr/include/csv.h
+	ln -sf $(PREFIX2)/$(BINNAMEINFLAG) /usr/lib/$(BINNAMEINFLAG)
+endif
 
 docker: clean
 	@echo "Cleaning existing .tmp\n"
